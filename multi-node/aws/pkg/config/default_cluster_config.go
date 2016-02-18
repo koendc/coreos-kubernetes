@@ -75,4 +75,9 @@ region: {{.Region}}
 # Make sure availabilityZone is set to availability zone of the subnet you specified
 # Make sure controllerIP is set to an IP addres from the subnet range
 # subnetID: "subnet-xxxxxx"
+
+# Extra tags to be set on the created resources
+# tags:
+#   owner: foo
+#   purpose: development
 `
