@@ -100,6 +100,16 @@ var defaultStackTemplate = `
         "true"
       ]
     },
+    "CreateRoute53RecordSet": {
+      "Fn::Not": [
+			  {
+          "Fn::Equals": [
+            "{{.HostedZoneName}}",
+            ""
+          ]
+			  }
+		  ]
+    },
 		"CreateVPCResources": {
 			"Fn::Or": [
 				{
@@ -478,6 +488,35 @@ var defaultStackTemplate = `
         "UserData": "{{.UserData.Worker.String}}"
       },
       "Type": "AWS::AutoScaling::LaunchConfiguration"
+    },
+	  "RecordSetController" : {
+      "Type" : "AWS::Route53::RecordSet",
+      "Condition": "CreateRoute53RecordSet",
+      "Properties" : {
+        "HostedZoneName" : {
+          "Fn::Join" : [ "", [
+            "{{.HostedZoneName}}", "."
+          ] ]
+        },
+        "Name" : {
+          "Fn::Join" : [ "", [
+            "{{.ExternalDNSName}}", "."
+          ] ]
+        },
+        "Type" : "A",
+        "TTL" : "300",
+        "ResourceRecords" : [
+          {
+            "Fn::If": [
+              "ControllerPublic",
+              {
+                "Ref": "EIPController"
+              },
+              "{{.ControllerIP}}"
+            ]
+          }
+        ]
+      }
     },
     "RouteTable": {
       "Condition": "CreateVPCResources",

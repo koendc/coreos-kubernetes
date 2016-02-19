@@ -50,6 +50,7 @@ func NewDefaultConfig() *Config {
 type Config struct {
 	ClusterName              string            `yaml:"clusterName"`
 	ExternalDNSName          string            `yaml:"externalDNSName"`
+	HostedZoneName           string            `yaml:"hostedZoneName"`
 	KeyName                  string            `yaml:"keyName"`
 	Region                   string            `yaml:"region"`
 	AvailabilityZone         string            `yaml:"availabilityZone"`

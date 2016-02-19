@@ -21,6 +21,10 @@ keyName: {{.KeyName}}
 # Region to provision Kubernetes cluster
 region: {{.Region}}
 
+# Zone to create a record in for externalDNSName.
+# Should be the name of a Route53 hosted zone.
+# hostedZoneName:
+
 # Availability Zone to provision Kubernetes cluster
 #availabilityZone:
 
